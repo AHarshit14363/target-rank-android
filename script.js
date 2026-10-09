@@ -137,6 +137,55 @@ function updateLoginButton(user){
   }
 }
 window.__trAuthenticated=false; window.__trUser=null;
+// Handle Google login callback in Android
+(async function registerNativeAuthCallback(){
+  const isNative = !!(
+    window.Capacitor &&
+    typeof window.Capacitor.isNativePlatform === 'function' &&
+    window.Capacitor.isNativePlatform()
+  );
+
+  if (!isNative) return;
+
+  try {
+    const { App } = await import('@capacitor/app');
+
+    await App.addListener('appUrlOpen', async ({ url }) => {
+      if (!url || !url.startsWith('com.targetrank.official://login-callback')) return;
+
+      try {
+        const callbackUrl = new URL(url);
+        const code = callbackUrl.searchParams.get('code');
+
+        if (code) {
+          const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code);
+          if (error) throw error;
+          if (data.session?.user) finishLogin(data.session.user);
+        } else if (callbackUrl.hash) {
+          const params = new URLSearchParams(callbackUrl.hash.slice(1));
+          const access_token = params.get('access_token');
+          const refresh_token = params.get('refresh_token');
+
+          if (access_token && refresh_token) {
+            const { data, error } = await supabaseClient.auth.setSession({
+              access_token,
+              refresh_token
+            });
+            if (error) throw error;
+            if (data.session?.user) finishLogin(data.session.user);
+          }
+        }
+
+        const { Browser } = await import('@capacitor/browser');
+        await Browser.close();
+      } catch (err) {
+        setAuthMessage(err.message || 'Google login callback failed.', true);
+      }
+    });
+  } catch (err) {
+    console.error('Native auth callback setup failed:', err);
+  }
+})();
 function finishLogin(user){
   if(!user)return;
   window.__trAuthenticated=true;window.__trUser=user;
