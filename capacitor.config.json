@@ -1,14 +1,5 @@
 {
   "appId": "com.targetrank.official",
   "appName": "TARGET RANK OFFICIAL",
-  "webDir": "www",
-  "server": {
-    "url": "https://targetrankofficial.netlify.app",
-    "cleartext": false
-  },
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 2000
-    }
-  }
+  "webDir": "www"
 }
