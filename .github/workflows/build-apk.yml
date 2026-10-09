@@ -53,6 +53,37 @@ jobs:
       - name: Sync Android project
         run: npx cap sync android
 
+      - name: Configure Android deep link
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path("android/app/src/main/AndroidManifest.xml")
+          s = p.read_text()
+
+          pattern = r'<activity\b[^>]*android:name="[^"]*MainActivity[^"]*"[^>]*>'
+          m = re.search(pattern, s)
+
+          if not m:
+              raise SystemExit("MainActivity not found; stopping build safely.")
+
+          insert = """
+              <intent-filter>
+                  <action android:name="android.intent.action.VIEW" />
+                  <category android:name="android.intent.category.DEFAULT" />
+                  <category android:name="android.intent.category.BROWSABLE" />
+                  <data android:scheme="com.targetrank.official" android:host="login-callback" />
+              </intent-filter>
+          """
+
+          if "android:host=\"login-callback\"" not in s:
+              s = s[:m.end()] + insert + s[m.end():]
+              p.write_text(s)
+
+          print("Android deep link configured.")
+          PY
+
       - name: Build APK
         run: |
           cd android
