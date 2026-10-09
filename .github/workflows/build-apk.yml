@@ -32,11 +32,23 @@ jobs:
       - name: Build website files
         run: npm run build
 
+      - name: Install Capacitor assets tool
+        run: npm install --save-dev @capacitor/assets
+
       - name: Initialize Capacitor
         run: npx cap init "TARGET RANK OFFICIAL" "com.targetrank.official" --web-dir www
 
       - name: Add Android platform
         run: npx cap add android
+
+      - name: Prepare app icon
+        run: |
+          mkdir -p assets
+          cp logo.png assets/icon.png
+          cp logo.png assets/splash.png
+
+      - name: Generate Android icons
+        run: npx capacitor-assets generate --android
 
       - name: Sync Android project
         run: npx cap sync android
