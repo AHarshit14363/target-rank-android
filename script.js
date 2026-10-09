@@ -52,7 +52,43 @@ function closeAuthModal(){
 function setAuthMessage(msg='',err=false){const e=document.getElementById('authMessage');e.textContent=msg;e.className='auth-message '+(err?'error':'success')}
 function updateAuthUI(){const s=authMode==='signup';document.getElementById('authTitle').textContent=s?'Create Account':'Welcome Back';document.getElementById('authSubtitle').textContent=s?'Create your free account and start preparing.':'Login to continue your preparation.';document.getElementById('authSubmit').textContent=s?'Create Account':'Login';document.getElementById('forgotBtn').hidden=s;document.getElementById('authSwitchText').innerHTML=s?'Already have an account? <button onclick="toggleAuthMode()">Login</button>':'New here? <button onclick="toggleAuthMode()">Create account</button>';setAuthMessage('')}
 function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';updateAuthUI()}
-async function signInWithGoogle(){if(!supabaseClient)return setAuthMessage('Login service unavailable. Refresh and try again.',true);const {error}=await supabaseClient.auth.signInWithOAuth({provider:'google',options:{redirectTo:'https://targetrankofficial.netlify.app'}});if(error)setAuthMessage(error.message,true)}
+
+async function signInWithGoogle(){
+  if(!supabaseClient){
+    setAuthMessage('Login service unavailable. Refresh and try again.',true);
+    return;
+  }
+
+  try {
+    const isNative = !!(
+      window.Capacitor &&
+      typeof window.Capacitor.isNativePlatform === 'function' &&
+      window.Capacitor.isNativePlatform()
+    );
+
+    const redirectTo = isNative
+      ? 'com.targetrank.official://login-callback'
+      : 'https://targetrankofficial.netlify.app';
+
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo,
+        skipBrowserRedirect: isNative
+      }
+    });
+
+    if(error) throw error;
+
+    if(isNative && data?.url){
+      const { Browser } = await import('@capacitor/browser');
+      await Browser.open({ url: data.url });
+    }
+  } catch(err) {
+    setAuthMessage(err.message || 'Google login failed.', true);
+  }
+}
+
 async function handleAuthSubmit(e){
   e.preventDefault();
   if(!supabaseClient)return setAuthMessage('Login service unavailable. Refresh the page.',true);
