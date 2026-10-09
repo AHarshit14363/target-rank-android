@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#061126">
+<meta name="google-site-verification" content="tcR45-6cBTMzNynD_sMFbigzzn8y5Ll5Z0b7QFT76sQ">
+<meta name="description" content="TARGET RANK OFFICIAL — competitive exam preparation with study resources, mock tests, current affairs and exam guidance.">
+<meta property="og:title" content="TARGET RANK OFFICIAL">
+<meta property="og:description" content="Learn • Practice • Achieve">
+<meta property="og:type" content="website">
+<title>TARGET RANK OFFICIAL | Learn • Practice • Achieve</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="style.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5RKQ9TDPJ8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5RKQ9TDPJ8');
+</script>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TARGET RANK">
+  <link rel="apple-touch-icon" href="/assets/app-icon-192.png">
+</head>
+<body class="auth-required">
+<header class="navbar">
+  <a class="brand" href="#home"><img src="assets/logo.png" alt="TARGET RANK OFFICIAL"><span>TARGET <b>RANK</b> <em>OFFICIAL</em></span></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  <nav id="nav">
+    <a href="#home">Home</a><a href="#study">Study</a><a href="#tests">Mock Tests</a>
+    <a href="#current">Current Affairs</a><a href="#exams">Exams</a><a href="#leaderboard">Leaderboard</a>
+    <button class="login-btn" id="loginBtn" onclick="openAuthModal()">Login</button><button class="profile-nav-btn" id="profileBtn" onclick="openProfile()" hidden>My Profile</button><button class="logout-nav-btn" id="logoutBtn" onclick="logoutUser()" hidden>Logout</button>
+  </nav>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <div class="hero-copy">
+    <span class="badge">🎯 YOUR GOAL • OUR TARGET</span>
+    <h1>Prepare Smart.<br><span>Target Your Rank.</span></h1>
+    <p>One focused platform for GK, GS, exam practice, current-affairs revision and smarter preparation.</p>
+    <div class="actions"><a class="btn primary" href="#tests">Start Mock Test →</a><a class="btn secondary" href="#study">Explore Study</a></div>
+    <div class="hero-mini"><span><b>GK & GS</b><small>Exam focused</small></span><span><b>Daily</b><small>Revision</small></span><span><b>Practice</b><small>Mock Tests</small></span></div>
+  </div>
+  <div class="hero-art"><div class="glow"></div><img src="assets/logo.png" alt="Target Rank Official logo"></div>
+</section>
+
+<section class="ticker"><b>🔥 LATEST</b><span>Study Material</span><span>Mock Tests</span><span>Current Affairs</span><span>Exam Updates</span></section>
+
+<section id="study" class="section">
+  <div class="section-head"><div><span class="eyebrow">STUDY HUB</span><h2>Learn <span>Smart</span></h2></div><p>Organized resources so you can revise faster and practice with purpose.</p></div>
+  <div class="search-row"><input id="librarySearch" placeholder="Search subject, topic or exam…" oninput="filterLibrary()"><select id="libraryFilter" onchange="filterLibrary()"><option value="all">All subjects</option><option value="gk">GK & GS</option><option value="polity">Polity</option><option value="science">Science</option><option value="exam">Exam Prep</option></select></div>
+  <div class="library-grid" id="libraryGrid">
+    <article class="library-card" data-tags="gk history geography economy"><div class="library-icon">📘</div><span>GK & GS</span><h3>General Knowledge</h3><p>History, geography, economy, science and static GK revision.</p><button onclick="showToast('GK notes section ready for your content.')">Open Notes →</button></article>
+    <article class="library-card" data-tags="polity constitution articles amendment"><div class="library-icon">⚖️</div><span>POLITY</span><h3>Indian Constitution</h3><p>Articles, Parts, Schedules, Amendments and exam facts.</p><button onclick="showToast('Polity library ready for your notes.')">Study Polity →</button></article>
+    <article class="library-card" data-tags="science physics chemistry biology"><div class="library-icon">🔬</div><span>SCIENCE</span><h3>General Science</h3><p>Physics, chemistry and biology concepts for competitive exams.</p><button onclick="showToast('Science library ready for your content.')">Explore Science →</button></article>
+    <article class="library-card" data-tags="exam upsi ssc railway nda banking"><div class="library-icon">🎓</div><span>EXAM PREP</span><h3>Exam-wise Preparation</h3><p>Syllabus, pattern, important topics and practice direction.</p><button onclick="document.getElementById('exams').scrollIntoView({behavior:'smooth'})">View Exams →</button></article>
+  </div>
+</section>
+
+<section id="tests" class="section dark-section">
+  <div class="section-head"><div><span class="eyebrow">PRACTICE ZONE</span><h2>Test Your <span>Preparation</span></h2></div><p>Timed practice with instant score and question-wise review.</p></div>
+  <div class="test-grid">
+    <article class="test-card"><i>01</i><h3>GK Quick Test</h3><p>10 Questions • Mixed GK</p><button onclick="startTest('GK Quick Test')">Start Test</button></article>
+    <article class="test-card"><i>02</i><h3>Indian Polity</h3><p>10 Questions • Constitution</p><button onclick="startTest('Indian Polity')">Start Test</button></article>
+    <article class="test-card"><i>03</i><h3>Current Affairs</h3><p>10 Questions • Revision</p><button onclick="startTest('Current Affairs')">Start Test</button></article>
+  </div>
+  <div id="testApp" class="test-app" hidden>
+    <div class="test-top"><div><b id="testTitle">Mock Test</b><small id="testProgress">Question 1 of 10</small></div><div class="timer" id="timer">05:00</div></div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div id="questionBox"></div>
+    <div class="test-actions"><button class="btn secondary" id="prevBtn" onclick="prevQuestion()">← Previous</button><button class="btn primary" id="nextBtn" onclick="nextQuestion()">Next →</button></div>
+    <div id="resultBox" class="result-box" hidden></div>
+  </div>
+</section>
+
+<section id="current" class="section">
+  <div class="section-head"><div><span class="eyebrow">REVISION HUB</span><h2>Current <span>Affairs</span></h2></div><p>Keep verified, exam-relevant updates in one place.</p></div>
+  <div class="current-grid">
+    <article class="current-card featured"><span>DAILY REVISION</span><h3>National & Government Updates</h3><p>Use this space for verified schemes, appointments, reports and important government decisions.</p><button onclick="showToast('Daily current-affairs feed can be updated here.')">Open Updates →</button></article>
+    <article class="current-card"><span>WORLD</span><h3>International Affairs</h3><p>Important global events, organizations, summits and reports.</p><button onclick="showToast('International affairs section ready.')">Read →</button></article>
+    <article class="current-card"><span>EXAM QUIZ</span><h3>Daily Current Quiz</h3><p>Turn daily news into quick revision questions for exams.</p><button onclick="startTest('Current Affairs')">Take Quiz →</button></article>
+  </div>
+  <div class="notice">ℹ️ Current-affairs facts should be verified from official or reliable sources before publication.</div>
+</section>
+
+<section id="exams" class="section exam-section">
+  <div class="section-head"><div><span class="eyebrow">TARGET YOUR EXAM</span><h2>Popular <span>Exams</span></h2></div><p>Choose an exam path and build your preparation around its pattern.</p></div>
+  <div class="exam-grid">
+    <article><b>UPSI</b><small>Uttar Pradesh Police</small><a class="exam-page-link" href="upsi.html">Explore →</a></article>
+    <article><b>SSC</b><small>CHSL • CGL • GD</small><a class="exam-page-link" href="ssc.html">Explore →</a></article>
+    <article><b>RAILWAY</b><small>RRB Exams</small><a class="exam-page-link" href="railway.html">Explore →</a></article>
+    <article><b>NDA</b><small>Defence Entrance</small><a class="exam-page-link" href="nda.html">Explore →</a></article>
+    <article><b>BANKING</b><small>Banking Exams</small><a class="exam-page-link" href="banking.html">Explore →</a></article>
+    <article><b>STATE EXAMS</b><small>State-level recruitment</small><a class="exam-page-link" href="state-exams.html">Explore →</a></article>
+  </div>
+</section>
+
+<section id="leaderboard" class="section leaderboard-section">
+  <div class="section-head"><div><span class="eyebrow">COMPETE & IMPROVE</span><h2>Practice <span>Leaderboard</span></h2></div><p>Local demo leaderboard. Connect a database later for a global ranking.</p></div>
+  <div class="leaderboard" id="leaderboardList"></div>
+</section>
+
+<section id="dashboard" class="section dashboard-section" hidden>
+  <div class="section-head"><div><span class="eyebrow">MY PREPARATION</span><h2>My <span>Dashboard</span></h2></div><p>Your practice summary and personal exam plan.</p></div>
+  <div class="profile-summary" id="profileSummary"><div class="profile-avatar" id="summaryAvatar">👤</div><div><h3 id="summaryName">Your Profile</h3><p id="summaryInterests">Choose your target exams and study interests.</p></div><button class="small-btn" onclick="openProfile()">Edit Profile</button></div>
+  <div class="dash-grid"><div class="dash-card"><b id="statAttempts">0</b><small>Tests Attempted</small></div><div class="dash-card"><b id="statBest">0%</b><small>Best Score</small></div><div class="dash-card"><b id="statAccuracy">0%</b><small>Average Accuracy</small></div></div>
+  <div class="history-panel"><div class="panel-head"><h3>Recent Test History</h3><button class="small-btn" onclick="clearHistory()">Clear History</button></div><div id="historyList"></div></div>
+</section>
+
+<section id="contact" class="cta">
+  <div><span class="eyebrow">TARGET RANK COMMUNITY</span><h2>Learn. Practice. <span>Achieve.</span></h2><p>Join the preparation journey and stay focused on your target rank.</p></div>
+  <div class="actions"><a class="btn primary" href="https://www.youtube.com/@TargetRankofficial" target="_blank" rel="noopener">YouTube Channel</a><button class="btn secondary" onclick="openAuthModal('signup')">Create Free Account</button></div>
+</section>
+</main>
+
+<div id="authModal" class="auth-modal login-gate" hidden>
+  <div class="auth-backdrop"></div>
+  <div class="auth-card">
+    <div class="auth-close" aria-hidden="true"> </div>
+    <div class="auth-logo"><img src="assets/logo.png" alt="Target Rank"></div>
+    <span class="eyebrow">TARGET RANK OFFICIAL</span><h2 id="authTitle">Welcome Back</h2><p id="authSubtitle">Login to continue your preparation.</p>
+    <button class="google-btn" onclick="signInWithGoogle()">G <span>Continue with Google</span></button>
+    <div class="auth-divider">or</div>
+    <form onsubmit="handleAuthSubmit(event)"><label>Email</label><input id="authEmail" type="email" required placeholder="you@example.com"><label>Password</label><input id="authPassword" type="password" minlength="6" required placeholder="Minimum 6 characters"><button id="authSubmit" class="btn primary full" type="submit">Login</button></form>
+    <button class="forgot-btn" id="forgotBtn" onclick="sendPasswordReset()">Forgot password?</button>
+    <p class="auth-switch" id="authSwitchText">New here? <button onclick="toggleAuthMode()">Create account</button></p>
+    <p id="authMessage" class="auth-message"></p>
+  </div>
+</div>
+
+
+<div id="profileModal" class="profile-modal" hidden>
+  <div class="profile-backdrop" onclick="closeProfile()"></div>
+  <section class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="profile-modal-head"><div><span class="eyebrow">YOUR ACCOUNT</span><h2 id="profileTitle">My Profile</h2></div><button class="profile-close" onclick="closeProfile()" aria-label="Close profile">×</button></div>
+    <form id="profileForm" onsubmit="saveProfile(event)">
+      <div class="profile-photo-row"><div class="profile-avatar large" id="profileAvatarPreview">👤</div><div><label for="profilePhoto">Profile photo</label><input id="profilePhoto" type="file" accept="image/*" onchange="previewProfilePhoto(event)"><small>Photo preview is saved on this device.</small></div></div>
+      <div class="profile-fields">
+        <div><label for="profileName">Your name</label><input id="profileName" maxlength="80" placeholder="Enter your name" required></div>
+        <div><label for="profileEmail">Email</label><input id="profileEmail" type="email" readonly></div>
+        <div><label for="profilePhone">Phone number</label><input id="profilePhone" type="tel" inputmode="tel" maxlength="20" placeholder="Enter phone number" autocomplete="tel"></div>
+        <div><label for="profileGender">Gender</label><select id="profileGender"><option value="">Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+        <div><label for="profileState">State / UT</label><select id="profileState" onchange="updateCities()"><option value="">Select state / UT</option></select></div>
+        <div><label for="profileCity">City</label><select id="profileCity"><option value="">Select city</option></select></div>
+      </div>
+      <fieldset class="interest-fieldset"><legend>Study interests</legend><div id="profileInterests" class="interest-grid">
+        <label><input type="checkbox" value="UPSI"> UPSI</label><label><input type="checkbox" value="NDA"> NDA</label><label><input type="checkbox" value="SSC"> SSC</label><label><input type="checkbox" value="Railway"> Railway</label><label><input type="checkbox" value="Banking"> Banking</label><label><input type="checkbox" value="GK/GS"> GK/GS</label><label><input type="checkbox" value="History"> History</label><label><input type="checkbox" value="Indian Polity"> Indian Polity</label><label><input type="checkbox" value="General Science"> General Science</label><label><input type="checkbox" value="Current Affairs"> Current Affairs</label><label><input type="checkbox" value="All India State Exams"> All India State Exams</label>
+      </div></fieldset>
+      <div class="profile-fields">
+        <div><label for="profileTarget">Primary target exam</label><select id="profileTarget"><option value="">Select target</option><option>UPSI</option><option>NDA</option><option>SSC</option><option>Railway</option><option>Banking</option><option>State Exams</option><option>GK/GS</option></select></div>
+        <div><label for="profileGoal">Daily study goal</label><select id="profileGoal"><option value="1">1 hour</option><option value="2">2 hours</option><option value="3">3 hours</option><option value="4">4 hours</option><option value="5">5 hours</option><option value="6">6 hours</option><option value="8">8 hours</option><option value="10">10 hours</option></select></div>
+        <div><label for="profileLanguage">Language preference</label><select id="profileLanguage"><option>Hindi</option><option>English</option></select></div>
+      </div>
+      <p id="profileMessage" class="profile-message"></p>
+      <div class="profile-actions"><button type="button" class="small-btn" onclick="closeProfile()">Cancel</button><button type="submit" class="btn primary">Save Profile</button><button type="button" class="logout-inline" onclick="logoutUser()">Logout</button></div>
+    </form>
+  </section>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<footer>
+  <div class="footer-main"><div class="footer-brand"><img src="assets/logo.png" alt=""><div><b>TARGET RANK OFFICIAL</b><span>Learn • Practice • Achieve</span></div></div>
+  <div class="footer-links"><a href="#home">Home</a><a href="#study">Study</a><a href="#tests">Tests</a><a href="#current">Current Affairs</a><a href="#contact">Contact</a></div></div>
+  <div class="footer-bottom"><span>© 2026 TARGET RANK OFFICIAL</span><span>Privacy • Terms • Disclaimer</span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js").catch((error) => {
+      console.error("Service worker registration failed:", error);
+    });
+  });
+}
+</script>
+
+</body>
+</html>

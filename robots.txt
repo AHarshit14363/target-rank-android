@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://targetrankofficial.netlify.app/sitemap.xml
