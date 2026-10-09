@@ -1,11 +1,5 @@
-
-{
-  "appId": "com.targetrank.official",
-  "appName": "TARGET RANK OFFICIAL",
-  "webDir": "www",
-  "plugins": {
-    "App": {
-      "url": "com.targetrank.official://login-callback"
-    }
-  }
-}
+<escape>{
+"appId": "com.targetrank.official",
+"appName": "TARGET RANK OFFICIAL",
+"webDir": "www"
+}</escape>
